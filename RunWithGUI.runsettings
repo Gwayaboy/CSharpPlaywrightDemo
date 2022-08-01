@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- File name extension must be .runsettings -->
+<!-- For more information, see https://docs.microsoft.com/en-us/visualstudio/test/configure-unit-tests-by-using-a-dot-runsettings-file?view=vs-2022  -->
+<RunSettings>
+	<RunConfiguration>
+		<EnvironmentVariables>
+			<!-- List of environment variables we want to set-->
+			<HEADED>1</HEADED>
+		</EnvironmentVariables>
+	</RunConfiguration>
+</RunSettings>

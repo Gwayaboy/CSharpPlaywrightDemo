@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "PlaywrightTests": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "HEADED": "1"
+      },
+      "hotReloadEnabled": true,
+      "nativeDebugging": true
+    }
+  }
+}
