@@ -8,14 +8,15 @@ namespace PlaywrightTests;
 
 public class PageObjectBaseTest<TPageAssertion> : PageTest where TPageAssertion:new()
 {
-    public TPageAssertion Expect<TPage>(TPage pageObj)
-        where TPage : PageObject
+    public TPageAssertion Expect<TPageObject>(TPageObject pageObj)
+        where TPageObject : PageObject, new()
     {
-        return PageAssertion<TPage>.Create<TPageAssertion>(pageObj);
+        return PageAssertions<TPageObject>.Create<TPageAssertion>(pageObj, Page) ;
     }
-    public async Task<TPage> NavigateTo<TPage>(string startUpUrl, IPage page) where TPage : PageObject, new()
+
+    public async Task<TPage> NavigateTo<TPage>(string startUpUrl) where TPage : PageObject, new()
     {
-        return await PageObject.GoToInitial<TPage>(startUpUrl, page);
+        return await PageObject.GoToInitial<TPage>(startUpUrl, Page);
     }
 }
 

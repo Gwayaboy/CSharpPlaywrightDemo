@@ -4,26 +4,26 @@ using System.Threading.Tasks;
 
 namespace PlaywrightTests.PageObjects;
 
-
-public abstract class PageObject
+public abstract class PageObject 
 {
-    internal IPage Page { get; private set; }
+    protected IPage Page { get; private set; }
 
     public string Url => Page.Url;
 
     public async Task<string> Title() => await Page.TitleAsync();
 
-    internal async static Task<TPageObject> GoToInitial<TPageObject>(string startUpUrl, IPage page) where TPageObject : PageObject, new()
+    internal async static Task<TPage> GoToInitial<TPage>(string startUpUrl, IPage page) where TPage : PageObject, new()
     {
-        if (page == null) throw new ApplicationException("Please provide with an IPage instance to proceed");
+        if (page == null) throw new ApplicationException("Please provide with an instance of IPage instance to proceed");
         await page.GotoAsync(startUpUrl);
-        return new TPageObject { Page = page };
+        return new TPage { Page = page };
     }
 
-    protected TPageObject GoTo<TPageObject>(IPage? newPage = null)
-      where TPageObject : PageObject, new()
+    protected TPage GoTo<TPage>(IPage? page = null)
+      where TPage : PageObject, new()
     {
-        return new TPageObject { Page = newPage ?? Page };
+        return new TPage { Page = page ?? Page };
     }
+
 }
 

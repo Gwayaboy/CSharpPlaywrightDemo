@@ -13,7 +13,7 @@ namespace PlaywrightTests
     public class BasicTest : ContextTest
     {
         #region secret password
-        private const string myPassword = "b5zkgmo1*";
+        private const string myPassword = "replaceYourPasswordHereLocally";
         #endregion
 
         public override BrowserNewContextOptions ContextOptions()
