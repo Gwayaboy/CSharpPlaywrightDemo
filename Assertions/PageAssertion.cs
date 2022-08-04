@@ -51,35 +51,34 @@ public abstract class PageAssertions<TPageObject> : IPageAssertions
 
     #region Wrapping Playwright's IPageAssertions Implementation
 
-    public IPageAssertions Not => Microsoft.Playwright.Assertions.Expect(Page).Not;
+    public IPageAssertions Not => Microsoft.Playwright.Assertions.Expect(Page).Not;    
 
-    private IPageAssertions Expect(TPageObject pageObj)
+    public Task ToHaveTitleAsync(string titleOrRegExp, PageAssertionsToHaveTitleOptions? options = null)
+    {
+        return Expect(Page).ToHaveTitleAsync(titleOrRegExp, options);
+    }
+
+    public Task ToHaveTitleAsync(Regex titleOrRegExp, PageAssertionsToHaveTitleOptions? options = null)
+    {
+        return Expect(Page).ToHaveTitleAsync(titleOrRegExp, options);
+    }
+
+    public Task ToHaveURLAsync(string urlOrRegExp, PageAssertionsToHaveURLOptions? options = null)
+    {
+        return Expect(Page).ToHaveURLAsync(urlOrRegExp, options);
+    }
+
+    public Task ToHaveURLAsync(Regex urlOrRegExp, PageAssertionsToHaveURLOptions? options = null)
+    {
+        return Expect(Page).ToHaveURLAsync(urlOrRegExp, options);
+    }
+
+    private IPageAssertions Expect(IPage page)
     {
         var assertions = Microsoft.Playwright.Assertions.Expect(Page);
 
         if (IsNegated) assertions = assertions.Not;
         return assertions;
-
-    }
-
-    public Task ToHaveTitleAsync(string titleOrRegExp, PageAssertionsToHaveTitleOptions? options = null)
-    {
-        return Expect(PageObject).ToHaveTitleAsync(titleOrRegExp, options);
-    }
-
-    public Task ToHaveTitleAsync(Regex titleOrRegExp, PageAssertionsToHaveTitleOptions? options = null)
-    {
-        return Expect(PageObject).ToHaveTitleAsync(titleOrRegExp, options);
-    }
-
-    public Task ToHaveURLAsync(string urlOrRegExp, PageAssertionsToHaveURLOptions? options = null)
-    {
-        return Expect(PageObject).ToHaveURLAsync(urlOrRegExp, options);
-    }
-
-    public Task ToHaveURLAsync(Regex urlOrRegExp, PageAssertionsToHaveURLOptions? options = null)
-    {
-        return Expect(PageObject).ToHaveURLAsync(urlOrRegExp, options);
     }
 
     #endregion
