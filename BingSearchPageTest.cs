@@ -35,7 +35,7 @@ public class BingSearchPageTest : PageObjectBaseTest<SearchPageResultAssertions>
         var resultPage = await searchPage.Search("Hello World!");
 
         // Assertions
-        await Expect(resultPage).Not.ToHaveUrlContain("search?q=Hello+World%21");
+        await Expect(resultPage).ToHaveUrlContain("search?q=Hello+World%21");
         await Expect(resultPage).ToHaveSearchedText("Hello World!");
         await Expect(resultPage).ToHaveAtLeastNumberOfResults(1);
 
