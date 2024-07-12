@@ -1,6 +1,7 @@
 ﻿using Microsoft.Playwright;
 using Microsoft.Playwright.NUnit;
 using NUnit.Framework;
+using PlaywrightTests.PageObjects;
 using System.Threading.Tasks;
 
 namespace PlaywrightTests
@@ -16,7 +17,7 @@ namespace PlaywrightTests
 
         public MultipleBrowsersTest(string browserName)
         {
-            _browserName = browserName;            
+            _browserName = browserName;
         }
 
         [SetUp]
@@ -34,17 +35,15 @@ namespace PlaywrightTests
         [Test]
         public async Task HelloWordSeachFirstResultShouldBeHelloWordProgram()
         {
-            //Arramge
+            //Arrange
             var page = await _browserContext.NewPageAsync();
-            await page.GotoAsync("https://bing.com");
-
+            var searchPage = await PageObject.GoToInitial<SearchPage>("https://bing.com", page);
 
             //Act
-            await page.TypeAsync("#sb_form_q", "Hello World!");
-            await page.ClickAsync("#search_icon");
+            var resultPage = await searchPage.Search("Hello World!");
 
             // Assertions
-            await Expect(page).ToHaveURLAsync("search?q=Hello+World%21");
+            Assert.IsTrue(resultPage.Url.Contains("search?q=Hello+World%21"));
         }
 
 

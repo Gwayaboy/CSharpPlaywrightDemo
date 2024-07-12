@@ -25,9 +25,9 @@ namespace PlaywrightTests
             return new BrowserNewContextOptions
             {
                 //Videos options must be set when creating browser context
-                RecordVideoDir = "videos/"+someString,
+                RecordVideoDir = "videos/" + someString,
                 RecordVideoSize = new RecordVideoSize() { Width = 640, Height = 480 }
-                
+
             };
 
 
@@ -39,15 +39,16 @@ namespace PlaywrightTests
             //Arramge
             var page = await Context.NewPageAsync();
             await page.GotoAsync("https://bing.com");
-
+            await page.GetByRole(AriaRole.Link, new() { Name = "Accept" }).ClickAsync();
 
             //Act
             await page.TypeAsync("#sb_form_q", "Hello World!");
+            await page.PressAsync("#sb_form_q", "Enter");
             await page.ClickAsync("#search_icon");
 
             // Assertions
-            Assert.IsTrue(page.Url.Contains("search?q=Hello+World%21"),$"Expected the page url to contain \"search?q=Hello+World%21\" but was {page.Url}"); 
-            //Expect(page).ToHaveURLAsync("search?q=Hello+World%21");
+            //Assert.IsTrue(page.Url.Contains("search?q=Hello+World%21"), $"Expected the page url to contain \"search?q=Hello+World%21\" but was {page.Url}");
+            Expect(page).ToHaveURLAsync("search?q=Hello+World%21");
 
         }
 
@@ -90,14 +91,14 @@ namespace PlaywrightTests
             await page.GotoAsync("https://www.bing.com/maps/");
             await page.ClickAsync("button:has-text(\"Accept\")");
             await page.ClickAsync("a.panelClose");
-            
+
             //Wait for the element to be available
             var locateMeButton = page.Locator("id=LocateMeButton");
-            await locateMeButton.WaitForAsync(new LocatorWaitForOptions {  State = WaitForSelectorState.Visible | WaitForSelectorState.Attached});
+            await locateMeButton.WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible | WaitForSelectorState.Attached });
 
             //Act
             await locateMeButton.ClickAsync();
-            
+
 
             //Assert
             // Assert.IsTrue(actualLocation.Contains(await page.Locator("span[data-tag=geochainSegmentContainer]").TextContentAsync()));

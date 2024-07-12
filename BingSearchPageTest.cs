@@ -9,6 +9,11 @@ namespace PlaywrightTests;
 
 public class BingSearchPageTest : PageObjectBaseTest<SearchPageResultAssertions>
 {
+
+    protected override BrowserTypeLaunchOptions BrowserLaunchOptions()
+    {
+        return new BrowserTypeLaunchOptions {Headless = false};
+    }
     [Category("BingTextSearch")]
     [Test]
     public async Task EmptySearchShouldNotTriggerAnySearch()
