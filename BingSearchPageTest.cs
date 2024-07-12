@@ -1,19 +1,12 @@
 using Microsoft.Playwright;
-using Microsoft.Playwright.NUnit;
-using NUnit.Framework;
 using PlaywrightTests.Assertions;
 using PlaywrightTests.PageObjects;
-using System.Threading.Tasks;
 
 namespace PlaywrightTests;
 
 public class BingSearchPageTest : PageObjectBaseTest<SearchPageResultAssertions>
 {
 
-    protected override BrowserTypeLaunchOptions BrowserLaunchOptions()
-    {
-        return new BrowserTypeLaunchOptions {Headless = false};
-    }
     [Category("BingTextSearch")]
     [Test]
     public async Task EmptySearchShouldNotTriggerAnySearch()

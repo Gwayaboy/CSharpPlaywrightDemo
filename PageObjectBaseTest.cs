@@ -12,18 +12,13 @@ public class PageObjectBaseTest<TPageAssertion> : PlaywrightTest where TPageAsse
     public IPage Page { get; protected set; }
     public IBrowser Browser { get; protected set; }
 
-    protected virtual IBrowserType SetUpBrowserType()
-    {
-        return base.BrowserType;
-    }
-
 
     private readonly List<IBrowserContext> _contexts = new();
 
     [SetUp]
     public async Task PageSetup()
     {
-        Browser = await SetUpBrowserType().LaunchAsync(BrowserLaunchOptions());
+        Browser = await BrowserType.LaunchAsync(BrowserLaunchOptions());
         var context = await NewContext(ContextOptions());
         Page = await context.NewPageAsync().ConfigureAwait(continueOnCapturedContext: false);
     }
